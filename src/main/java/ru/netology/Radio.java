@@ -1,66 +1,111 @@
 package ru.netology.radio;
 
 public class Radio {
-    private int currentNumber;
-    private int currentVolume;
-    private int minNumber = 0;
-    private int maxNumber = 9;
+
+    private int maxRadioStation = 9;
+    private int minRadioStation = 0;
+    private int currentRadioStation = minRadioStation;
+    private int maxVolume = 100;
     private int minVolume = 0;
-    private int maxVolume = 10;
+    private int currentVolume = minVolume;
 
-    public int getCurrentNumber() {
-        return currentNumber;
+    public Radio() {
+        this.maxRadioStation = maxRadioStation;
     }
 
-    public void setCurrentNumber(int newCurrentNumber) { // указываем границы диапазона
-        if (newCurrentNumber < minNumber) {
-            return;
-        }
-        if (newCurrentNumber > maxNumber) {
-            return;
-        }
-        currentNumber = newCurrentNumber;
+    public Radio(int amountRadioStation) {
+        this.maxRadioStation = amountRadioStation - 1;
     }
 
-    public void nextNumber() {
-        if (currentNumber < maxNumber) {
-            currentNumber = currentNumber + 1;
-        } else {
-            currentNumber = minNumber; // переход счетчика после 9 на 0
-        }
+    public int getCurrentRadioStation() {
+        return currentRadioStation;
     }
 
-    public void prevNumber() {
-        if (currentNumber > minNumber) {
-            currentNumber = currentNumber - 1;
-        } else {
-            currentNumber = maxNumber; // переход счетчика после 0 на 9
-        }
+    public int getMaxRadioStation() {
+        return maxRadioStation;
+    }
+
+    public int getMinRadioStation() {
+        return minRadioStation;
     }
 
     public int getCurrentVolume() {
         return currentVolume;
     }
 
-    public void setCurrentVolume(int newCurrentVolume) { // указываем границы диапазона
+    public int getMaxVolume() {
+        return maxVolume;
+    }
+
+    public int getMinVolume() {
+        return minVolume;
+    }
+
+    public void setCurrentRadioStation(int newCurrentRadioStation) {
+        if (newCurrentRadioStation < minRadioStation) {
+            return;
+        }
+        if (newCurrentRadioStation > maxRadioStation) {
+            return;
+        }
+        currentRadioStation = newCurrentRadioStation;
+    }
+
+    public void setCurrentVolume(int newCurrentVolume) {
         if (newCurrentVolume < minVolume) {
-            newCurrentVolume = minVolume;
+            return;
         }
         if (newCurrentVolume > maxVolume) {
-            newCurrentVolume = maxVolume;
+            return;
         }
         currentVolume = newCurrentVolume;
     }
 
-    public void increaseVolume() {
-        if (currentVolume < maxVolume) {
-            currentVolume = currentVolume + 1;
+    public void setToMaxRadioStation() {
+        currentRadioStation = maxRadioStation;
+    }
+
+    public void setToMinRadioStation() {
+        currentRadioStation = minRadioStation;
+    }
+
+    public void setToMaxVolume() {
+        currentVolume = maxVolume;
+    }
+
+    public void setToMinVolume() {
+        currentVolume = minVolume;
+    }
+
+    public void nextRadioStation() {
+        if (currentRadioStation < maxRadioStation) {
+            setCurrentRadioStation(currentRadioStation + 1);
+        } else {
+            setToMinRadioStation();
         }
     }
 
-    public void decreaseVolume() {
+    public void prevRadioStation() {
+        if (currentRadioStation > minRadioStation) {
+            setCurrentRadioStation(currentRadioStation - 1);
+        } else {
+            setToMaxRadioStation();
+        }
+    }
+
+    public void augmentVolume() {
+        if (currentVolume < maxVolume) {
+            setCurrentVolume(currentVolume + 1);
+        } else {
+            setToMaxVolume();
+        }
+    }
+
+    public void decrementVolume() {
         if (currentVolume > minVolume) {
-            currentVolume = currentVolume - 1;
+            setCurrentVolume(currentVolume - 1);
+        } else {
+            setToMinVolume();
         }
     }
 }
